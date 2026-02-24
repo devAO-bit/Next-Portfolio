@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Blog Platform",
+    "description": "Full MERN stack blog with authentication",
+    "github": "https://github.com/yourrepo"
+  },
+  {
+    "title": "AI Task Generator",
+    "description": "AI-powered productivity tool",
+    "github": "https://github.com/yourrepo2"
+  }
+]
