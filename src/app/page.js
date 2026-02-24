@@ -16,7 +16,7 @@ export default function Home() {
         Hi, I am Abhishek 👋
       </h1>
 
-      <p className="mt-4 text-lg text-gray-600 max-w-xl">
+      <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-xl">
         MERN Stack Developer passionate about building scalable web applications and AI-powered tools.
       </p>
 
