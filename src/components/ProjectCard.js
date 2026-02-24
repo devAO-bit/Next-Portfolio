@@ -16,4 +16,4 @@ export default function ProjectCard({ project }) {
       </p>
     </motion.div>
   );
-}
+}   
