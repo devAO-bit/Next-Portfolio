@@ -63,7 +63,7 @@ export default function Footer() {
               href={link.href}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel="noreferrer"
-              className="font-mono text-xs tracking-wide text-[var(--muted)] hover:text-[var(--accent)] transition-colors duration-200"
+              className="font-mono text-xs tracking-wide text-(--muted) hover:text-(--accent) transition-colors duration-200"
             >
               {link.label}
             </a>

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 export default function ProjectCard({ project }) {
@@ -7,72 +6,51 @@ export default function ProjectCard({ project }) {
 
   return (
     <div
-      className="card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ padding: '28px', display: 'flex', flexDirection: 'column', gap: 16, height: '100%' }}
+      style={{
+        padding: 28,
+        borderRadius: 16,
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 18,
+        height: "100%",
+        transition: "all 0.3s ease",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 20px 40px rgba(0,0,0,0.08)"
+          : "0 4px 10px rgba(0,0,0,0.03)",
+      }}
     >
-      {/* Top row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+      {/* Header */}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div
           style={{
-            width: 42,
-            height: 42,
-            borderRadius: 10,
-            background: 'var(--accent-glow)',
-            border: '1px solid rgba(0,194,168,0.2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            width: 44,
+            height: 44,
+            borderRadius: 12,
+            background: "linear-gradient(135deg, var(--accent), #00f5d4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             fontSize: 18,
-            flexShrink: 0,
+            color: "#000",
+            fontWeight: 700,
           }}
         >
           ⚡
         </div>
-        <div style={{ display: 'flex', gap: 10 }}>
+
+        <div style={{ display: "flex", gap: 14 }}>
           {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
-                fontFamily: 'DM Mono, monospace',
-                fontSize: 12,
-                color: 'var(--muted)',
-                textDecoration: 'none',
-                letterSpacing: '0.04em',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
-            >
+            <a href={project.github} target="_blank" rel="noreferrer" className="link">
               GitHub ↗
             </a>
           )}
           {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
-                fontFamily: 'DM Mono, monospace',
-                fontSize: 12,
-                color: 'var(--muted)',
-                textDecoration: 'none',
-                letterSpacing: '0.04em',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
-            >
+            <a href={project.live} target="_blank" rel="noreferrer" className="link">
               Live ↗
             </a>
           )}
@@ -80,39 +58,45 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* Title */}
-      <h2
-        className="font-display"
+      <h3
         style={{
-          fontSize: 19,
+          fontSize: 20,
           fontWeight: 700,
-          color: 'var(--foreground)',
-          lineHeight: 1.3,
-          letterSpacing: '-0.01em',
+          letterSpacing: "-0.02em",
         }}
       >
         {project.title}
-      </h2>
+      </h3>
 
       {/* Description */}
-      <p style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.65, flex: 1 }}>
+      <p
+        style={{
+          fontSize: 14,
+          color: "var(--muted)",
+          lineHeight: 1.7,
+          display: "-webkit-box",
+          WebkitLineClamp: 4,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+          minHeight: 90,
+        }}
+      >
         {project.description}
       </p>
 
       {/* Highlights */}
       {project.highlights && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {project.highlights.map((h) => (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {project.highlights.slice(0, 3).map((h) => (
             <span
               key={h}
               style={{
-                fontFamily: 'DM Mono, monospace',
                 fontSize: 11,
-                padding: '3px 8px',
-                borderRadius: 4,
-                background: 'var(--surface-2)',
-                color: 'var(--muted)',
-                border: '1px solid var(--border)',
-                letterSpacing: '0.02em',
+                padding: "4px 10px",
+                borderRadius: 999,
+                background: "var(--accent-glow)",
+                color: "var(--accent)",
+                fontWeight: 500,
               }}
             >
               {h}
@@ -121,11 +105,33 @@ export default function ProjectCard({ project }) {
         </div>
       )}
 
+      {/* Spacer pushes tags to bottom */}
+      <div style={{ flexGrow: 1 }} />
+
       {/* Tags */}
       {project.tags && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, paddingTop: 4, borderTop: '1px solid var(--border)' }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 6,
+            paddingTop: 16,
+            borderTop: "1px solid var(--border)",
+          }}
+        >
           {project.tags.map((tag) => (
-            <span key={tag} className="tag">{tag}</span>
+            <span
+              key={tag}
+              style={{
+                fontSize: 11,
+                padding: "4px 8px",
+                borderRadius: 6,
+                background: "var(--surface-2)",
+                color: "var(--muted)",
+              }}
+            >
+              {tag}
+            </span>
           ))}
         </div>
       )}
