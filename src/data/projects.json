@@ -1,12 +1,50 @@
 [
   {
-    "title": "Blog Platform",
-    "description": "Full MERN stack blog with authentication",
-    "github": "https://github.com/yourrepo"
+    "title": "Multi-Tenant SaaS Expense Management",
+    "description": "SaaS platform with isolated company instances achieving 99.9% data segregation. Features RBAC with 3-tier access control, automated approval workflows, and Puppeteer/xlsx-based PDF & Excel reporting.",
+    "tags": ["Node.js", "Express", "MongoDB", "React", "Cloudinary"],
+    "github": "https://github.com/abhitech2002/expense-management-saas",
+    "live": "",
+    "highlights": ["99.9% data segregation", "70% faster expense processing", "3-tier access control", "Puppeteer/xlsx-based PDF & Excel reporting", "500+ monthly reports"]
   },
   {
-    "title": "AI Task Generator",
-    "description": "AI-powered productivity tool",
-    "github": "https://github.com/yourrepo2"
-  }
+    "title": "Dev Project Planner",
+    "description": "Full-stack project management dashboard with projects, features, and task tracking. Includes AI-powered task generation that converts natural language project descriptions into structured task breakdowns. Built with TypeScript and TanStack Query for efficient server-state management, caching, and automatic query invalidation.",
+    "tags": ["Node.js", "React", "TypeScript", "MongoDB", "TanStack Query", "OpenAI API"],
+    "github": "https://github.com/devAO-bit/Dev-Project-Planner",
+    "live": "",
+    "highlights": [
+      "AI-powered task generation",
+      "Semantic versioning",
+      "CRUD operations",
+      "Reusable UI components",
+      "Server-state caching with TanStack Query"
+    ]
+  },
+  {
+  "title": "Blog Platform",
+  "description": "Full-stack MERN blog platform with JWT authentication, role-based content management, and automated data lifecycle handling. Supports blog publishing workflow with soft deletion, scheduled permanent cleanup via cron jobs, advanced search, sorting, pagination, and author-specific dashboard management. Includes live image preview and structured validation middleware.",
+  "tags": [
+    "MongoDB",
+    "Express",
+    "React",
+    "Node.js",
+    "Mongoose",
+    "JWT",
+    "bcrypt",
+    "TailwindCSS",
+    "Joi",
+    "Cloudinary"
+  ],
+  "github": "https://github.com/abhitech2002/AksharDhara",
+  "live": "",
+  "highlights": [
+    "JWT authentication with secure password hashing (bcrypt)",
+    "Soft delete with automated 30-day cron cleanup",
+    "Advanced pagination, search & sorting utilities",
+    "Author dashboard for content management",
+    "Reusable middleware for validation & filtering",
+    "Live image preview with optional Cloudinary integration"
+  ]
+}
 ]
