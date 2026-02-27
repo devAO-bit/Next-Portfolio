@@ -1,0 +1,72 @@
+# .github/workflows/sync-blogs.yml
+#
+# Runs every night at midnight IST (18:30 UTC).
+# Fetches .md posts from the blog repo, rebuilds blogs.json,
+# and commits + pushes the changes — which triggers a Vercel redeploy.
+#
+# Can also be triggered manually from the GitHub Actions tab.
+
+name: Sync Blog Posts
+
+on:
+  # ── Automatic: runs every night at 18:30 UTC = midnight IST ──
+  schedule:
+    - cron: "30 18 * * *"
+
+  # ── Manual: trigger anytime from GitHub Actions tab ──
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Fetch & Rebuild blogs.json
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the portfolio repo ──────────────────────────────────────
+      - name: Checkout portfolio repo
+        uses: actions/checkout@v4
+        with:
+          # Full history needed so git can detect changes
+          fetch-depth: 0
+
+      # ── 2. Set up Node.js ────────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # ── 3. Install dependencies (gray-matter) ────────────────────────────────
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. Run the sync script ───────────────────────────────────────────────
+      - name: Run sync-blogs script
+        run: node src/scripts/sync-blogs.mjs
+        env:
+          # GitHub automatically provides this token.
+          # It gives the script read access to public repos (no setup needed).
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 5. Check if blogs.json actually changed ──────────────────────────────
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet data/blogs.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes to blogs.json — nothing to commit."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "blogs.json has changed — will commit."
+          fi
+
+      # ── 6. Commit and push updated blogs.json ────────────────────────────────
+      #    Only runs if step 5 detected a change
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/blogs.json
+          git commit -m "chore: sync blog posts [$(date +'%Y-%m-%d')]"
+          git push
