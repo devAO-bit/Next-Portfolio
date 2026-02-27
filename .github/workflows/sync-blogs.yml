@@ -52,7 +52,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet data/blogs.json; then
+          if git diff --quiet src/data/blogs.json; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "No changes to blogs.json — nothing to commit."
           else
