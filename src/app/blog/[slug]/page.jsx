@@ -48,6 +48,7 @@ function renderContent(content) {
   let inCode = false;
   let codeLang = "";
   let key = 0;
+  let firstH2 = true; // used to suppress border-top on the very first ## heading
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -81,9 +82,19 @@ function renderContent(content) {
 
     if (line.startsWith("## ")) {
       const text = line.slice(3);
+      const isFirst = firstH2;
+      firstH2 = false;
       elements.push(
         <h2 key={key++} id={slugify(text)} className="font-display"
-          style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.01em", color: "var(--foreground)", marginTop: 48, marginBottom: 14, paddingTop: 16, borderTop: "1px solid var(--border)", scrollMarginTop: 88 }}>
+          style={{
+            fontSize: 22, fontWeight: 700, letterSpacing: "-0.01em",
+            color: "var(--foreground)",
+            marginTop: isFirst ? 8 : 48,
+            marginBottom: 14,
+            paddingTop: isFirst ? 0 : 16,
+            borderTop: isFirst ? "none" : "1px solid var(--border)",
+            scrollMarginTop: 88,
+          }}>
           {text}
         </h2>
       );
